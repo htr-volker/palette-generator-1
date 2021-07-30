@@ -1,10 +1,16 @@
 pipeline {
     agent any
+    environment {
+        HOSTNAME = 'staging'
+    }
     stages {
         stage('Deploy') {
             steps {
+                // delete and recreate the folder on the remote machine
                 sh 'ssh 172.31.42.50 "rm -rf palette-generator && mkdir palette-generator"'
+                // copy local files to the remote machine
                 sh 'scp -r * 172.31.42.50:/home/jenkins/palette-generator'
+                // run the deploy script remotely
                 sh 'ssh 172.31.42.50 < scripts/ssh-connect.sh'
             }
         }
