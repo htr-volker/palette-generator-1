@@ -1,7 +1,7 @@
 pipeline {
     agent any
     stages {
-        tage('Test') {
+        stage('Test') {
             sh 'echo tests!'
         }
         stage('Deploy') {
