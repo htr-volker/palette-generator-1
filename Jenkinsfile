@@ -1,5 +1,8 @@
 pipeline {
     agent any
+    environment {
+        HOSTNAME = 'staging'
+    }
     stages {
         stage('Test') {
             steps {
@@ -13,7 +16,7 @@ pipeline {
                 // copy local files to the remote machine
                 sh 'scp -r * 172.31.42.50:/home/jenkins/palette-generator'
                 // run the deploy script remotely
-                sh 'ssh 172.31.42.50 < scripts/ssh-connect.sh'
+                sh "ssh 172.31.42.50 HOSTNAME=${HOSTNAME} < scripts/ssh-connect.sh"
             }
         }
     }
