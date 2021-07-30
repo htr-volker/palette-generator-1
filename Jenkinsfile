@@ -1,8 +1,5 @@
 pipeline {
     agent any
-    environment {
-        HOSTNAME = 'staging'
-    }
     stages {
         stage('Deploy') {
             steps {
